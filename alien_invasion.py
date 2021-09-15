@@ -22,3 +22,8 @@ class AlienInvasion:
             
             #Hace visible la última pantalla dibujada.
             pygame.display.flip()
+
+if __name__ == '__main__':
+    #Hace una instancia del juego y lo ejecuta
+    ai = AlienInvasion()
+    ai.run_game()
