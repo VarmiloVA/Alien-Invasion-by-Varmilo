@@ -1,6 +1,7 @@
 import sys
-
 import pygame
+
+from settings import Settings
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
@@ -9,11 +10,16 @@ class AlienInvasion:
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
-        self.screen = pygame.display.set_mode((1920, 1080))
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.setting_width, self.settings.setting_height)
+            )
+
         pygame.display.set_caption("Alien Invasion")
 
         # Configura el color de fondo
-        self.bg_color = (30, 10, 230)
+        self.bg_color = self.settings.bg_color
 
     def run_game(self):
         """Inicia el bucle principal para el juego."""
