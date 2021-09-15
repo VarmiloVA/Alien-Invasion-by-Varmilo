@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from nave import Ship
+from ovni import Ufo
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
@@ -20,6 +21,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)
+        self.ufo = Ufo(self)
 
         # Configura el color de fondo
         self.bg_color = self.settings.bg_color
@@ -35,6 +37,7 @@ class AlienInvasion:
             #Redibuja la pantalla en cada paso por el bucle
             self.screen.fill(self.bg_color)
             self.ship.blitme()
+            self.ufo.blitme()
             
             #Hace visible la última pantalla dibujada.
             pygame.display.flip()
