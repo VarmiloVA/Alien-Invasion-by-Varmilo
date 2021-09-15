@@ -9,8 +9,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         #Carga la imagen de la nave y  obtiene su rect.
-        route = 'C:/Users/Dani/Desktop/fondos de pantalla/nave_espacial.bpm'
-        self.image = pygame.image.load(route)
+        self.image = pygame.image.load('images/ship.bmp')
 
         self.rect = self.image.get_rect()
 

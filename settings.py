@@ -5,4 +5,4 @@ class Settings:
         """Inicializa la configuraciónd el juego"""
         self.setting_width = 1200
         self.setting_height = 800
-        self.bg_color = (30, 10, 230)
+        self.bg_color = (93, 118, 142)
