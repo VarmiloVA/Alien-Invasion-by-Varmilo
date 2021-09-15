@@ -1,0 +1,9 @@
+En Alien Invasion, el jugador controla una nave que aparece en el centro
+de la pantalla, en la parte inferior. El jugador puede mover la nave hacia
+la izquierda y hacia la derecha con las teclas de dirección y disparar balas
+con la Barra espaciadora. cuando comienza el juego, una flota de extra-
+terrestres llena el cielo y se mueve hacia abajo por la pantalla. El jugador
+dispara a los aliens para destruirlos. Cuando ha terminado con todos,
+aparece una nueva flota que se mueve más rápido que la anterior. Si un
+alien toca la nave del jugador o llega al fondo de la pantalla, el jugador
+pierde una vida. Cuando el jugador pierde tres vidas, el juego termina.
