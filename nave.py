@@ -19,11 +19,15 @@ class Ship:
 
         #Bandera de movimiento
         self.moving_right = False
+        self.moving_left = False
     
     def update(self):
         """Actualiza la posición de la nave en función de la bandera"""
         if self.moving_right:
             self.rect.x += 1
+            
+        elif self.moving_left:
+            self.rect.x -= 1
 
     def blitme(self):
         """Dibuja la nave en su ubicación actual"""
