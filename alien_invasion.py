@@ -3,7 +3,6 @@ import pygame
 
 from settings import Settings
 from nave import Ship
-from ovni import Ufo
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
@@ -21,7 +20,6 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)
-        self.ufo = Ufo(self)
 
         # Configura el color de fondo
         self.bg_color = self.settings.bg_color
@@ -29,18 +27,29 @@ class AlienInvasion:
     def run_game(self):
         """Inicia el bucle principal para el juego."""
         while True:
-            #Busca eventos de teclado y ratón
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
+            self.ship.update()
+            self._update_screen()
+        
+    def _check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
             
-            #Redibuja la pantalla en cada paso por el bucle
-            self.screen.fill(self.bg_color)
-            self.ship.blitme()
-            self.ufo.blitme()
-            
-            #Hace visible la última pantalla dibujada.
-            pygame.display.flip()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+                
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+
+    def _update_screen(self):
+        """Actualiza la pantalla y cambia a la pantalla nueva."""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+
+        pygame.display.flip()
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
