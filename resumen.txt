@@ -7,3 +7,12 @@ dispara a los aliens para destruirlos. Cuando ha terminado con todos,
 aparece una nueva flota que se mueve más rápido que la anterior. Si un
 alien toca la nave del jugador o llega al fondo de la pantalla, el jugador
 pierde una vida. Cuando el jugador pierde tres vidas, el juego termina.
+
+Ideas extra:
+    Hacer niveles de dificultad, la dificultad dependera de la velocidad a la 
+    que va tu nave (cuanto mayor la dificultad, menor la velocidad de la
+    nave y mayor de los enemigos)
+
+    Hacer resoluciones optativas 
+
+    Ajuste de velocidad en un llamado "modo libre" 
