@@ -6,4 +6,5 @@ class Settings:
         self.setting_width = 1200
         self.setting_height = 800
         self.bg_color = (93, 118, 142)
-        self.ship_speed = 0.75
+        self.ship_horizontal_speed = 0.75
+        self.ship_vertical_speed = 0.5
