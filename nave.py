@@ -26,6 +26,7 @@ class Ship:
 
         #Guarda un valor decimal de la posición x de la nave
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
     
     def update(self):
         #Actualiza el valor de x
@@ -40,10 +41,13 @@ class Ship:
 
         #Actualiza el valor de y
         if self.moving_up:
-            self.y += self.settings.ship_vertical_speed
-
-        elif self.moving.down:
             self.y -= self.settings.ship_vertical_speed
+
+        elif self.moving_down:
+            self.y += self.settings.ship_vertical_speed
+        
+        #Actualiza el objeto rect de self.y
+        self.rect.y = self.y
 
 
 
