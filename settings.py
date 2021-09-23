@@ -6,5 +6,7 @@ class Settings:
         self.setting_width = 1100
         self.setting_height = 700
         self.bg_color = (93, 118, 142)
-        self.ship_horizontal_speed = 0.5
-        self.ship_vertical_speed = 0.25
+        #Apaño termporal para la velocidad que hay que cambiar
+        self.ship_speed = 0.4
+        self.ship_horizontal_speed = self.ship_speed
+        self.ship_vertical_speed = self.ship_speed

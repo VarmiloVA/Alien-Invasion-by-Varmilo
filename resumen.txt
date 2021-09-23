@@ -15,4 +15,4 @@ Ideas extra:
 
     Hacer resoluciones optativas 
 
-    Ajuste de velocidad en un llamado "modo libre" 
+    Ajuste de velocidad en un llamado "personalizado" 

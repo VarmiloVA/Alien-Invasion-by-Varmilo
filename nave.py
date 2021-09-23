@@ -29,27 +29,23 @@ class Ship:
         self.y = float(self.rect.y)
     
     def update(self):
-        #Actualiza el valor de x
-        if self.moving_right:
+        """Actualiza la posición de la nave en función de las banderas de 
+        movimiento"""
+
+        #Actualiza el valor x de la nave, no el rect.
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_horizontal_speed
-
-        elif self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_horizontal_speed
-        
-        #Actualiza el objeto rect de self.x
-        self.rect.x = self.x
-
-        #Actualiza el valor de y
-        if self.moving_up:
+        if self.moving_up and self.rect.top > self.screen_rect.centery + 100:
             self.y -= self.settings.ship_vertical_speed
-
-        elif self.moving_down:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y += self.settings.ship_vertical_speed
-        
-        #Actualiza el objeto rect de self.y
+
+        # Actualiza el objeto rect de self.x
+        self.rect.x = self.x
+        # Actualiza el objeto rect de self.y
         self.rect.y = self.y
-
-
 
     def blitme(self):
         """Dibuja la nave en su ubicación actual"""
