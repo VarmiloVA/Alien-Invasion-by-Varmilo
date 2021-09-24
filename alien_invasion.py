@@ -24,6 +24,10 @@ class AlienInvasion:
         # Configura el color de fondo
         self.bg_color = self.settings.bg_color
 
+        # Variable que hace que el usuario tenga de darle dos veces a esc para 
+        # salir
+        self.escape = 0
+
     def run_game(self):
         """Inicia el bucle principal para el juego."""
         while True:
@@ -47,12 +51,20 @@ class AlienInvasion:
     def _keydown_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
             self.ship.moving_right = True
+            self.escape = 0
         elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-            self.ship.moving_left = True               
+            self.ship.moving_left = True      
+            self.escape = 0         
         elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-            self.ship.moving_down = True              
+            self.ship.moving_down = True  
+            self.escape = 0            
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
+            self.escape = 0
+        elif event.key == pygame.K_ESCAPE and self.escape < 1:   
+            self.escape += 1
+        elif event.key == pygame.K_ESCAPE and self.escape == 1:
+            sys.exit()
 
     def _keyup_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
