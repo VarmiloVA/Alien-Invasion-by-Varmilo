@@ -14,12 +14,12 @@ class AlienInvasion:
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
 
-        if self.formato_pantalla == 'COMPLETO':
+        if self.formato_pantalla.upper() == 'COMPLETO':
             # El juego se abre en pantalla completa
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             self.settings.screen_width = self.screen.get_rect().width
             self.settings.screen_height = self.screen.get_rect().height
-        elif self.formato_pantalla == 'VENTANA':
+        elif self.formato_pantalla.upper() == 'VENTANA':
             # El juego se abre en una ventana
             self.screen = pygame.display.set_mode(
                 (self.settings.setting_width, self.settings.setting_height)
@@ -91,7 +91,7 @@ class AlienInvasion:
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
     try:
-        ai = AlienInvasion('fdas')
+        ai = AlienInvasion('VENTANA')
         ai.run_game()
     except AttributeError:
         print('atributos mal introducidos')
