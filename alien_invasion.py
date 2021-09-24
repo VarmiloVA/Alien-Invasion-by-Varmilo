@@ -7,22 +7,23 @@ from nave import Ship
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
-    def __init__(self):
+    def __init__(self, modo_pantalla):
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
         self.settings = Settings()
+        self.formato_pantalla = modo_pantalla
 
-        # Modo pantalla completa
-        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        # self.settings.screen_width = self.screen.get_rect().width
-        # self.settings.screen_height = self.screen.get_rect().height
-
-        self.screen = pygame.display.set_mode(
-            (self.settings.setting_width, self.settings.setting_height)
-        )
-        pygame.display.set_caption("Alien Invasion")
-
+        if self.formato_pantalla == 'COMPLETO':
+            # El juego se abre en pantalla completa
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.settings.screen_width = self.screen.get_rect().width
+            self.settings.screen_height = self.screen.get_rect().height
+        elif self.formato_pantalla == 'VENTANA':
+            # El juego se abre en una ventana
+            self.screen = pygame.display.set_mode(
+                (self.settings.setting_width, self.settings.setting_height)
+            )
         self.ship = Ship(self)
 
         # Configura el color de fondo
@@ -89,5 +90,8 @@ class AlienInvasion:
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
-    ai = AlienInvasion()
-    ai.run_game()
+    try:
+        ai = AlienInvasion('fdas')
+        ai.run_game()
+    except AttributeError:
+        print('atributos mal introducidos')
