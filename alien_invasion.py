@@ -32,35 +32,37 @@ class AlienInvasion:
             self._update_screen()
         
     def _check_events(self):
+        """Comprueba los eventos y responde a ellos"""
         for event in pygame.event.get():
+            #Comprueba si el usuario ha cerrado la ventana
             if event.type == pygame.QUIT:
                 sys.exit()
-            
+            #Comprueba los eventos de tipo keydown
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.ship.moving_right = True
-
-                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.ship.moving_left = True
-                
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.ship.moving_down = True
-                
-                elif event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.ship.moving_up = True
-                
+                self._keydown_events(event)
+            #Comprueba los eventos de tipo keyup
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.ship.moving_right = False
+                self._keyup_events(event)
+    
+    def _keydown_events(self, event):
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = True               
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            self.ship.moving_down = True              
+        elif event.key == pygame.K_UP or event.key == pygame.K_w:
+            self.ship.moving_up = True
 
-                elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.ship.moving_left = False
-            
-                elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                    self.ship.moving_down = False
-
-                elif event.key == pygame.K_UP or event.key == pygame.K_w:
-                    self.ship.moving_up = False  
+    def _keyup_events(self, event):
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            self.ship.moving_left = False            
+        elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            self.ship.moving_down = False
+        elif event.key == pygame.K_UP or event.key == pygame.K_w:
+            self.ship.moving_up = False  
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""

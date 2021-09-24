@@ -33,13 +33,13 @@ class Ship:
         movimiento"""
 
         #Actualiza el valor x de la nave, no el rect.
-        if self.moving_right and self.rect.right < self.screen_rect.right:
+        if self.moving_right and self.rect.right < self.screen_rect.right + 35:
             self.x += self.settings.ship_horizontal_speed
-        if self.moving_left and self.rect.left > 0:
+        if self.moving_left and self.rect.left > -35:
             self.x -= self.settings.ship_horizontal_speed
         if self.moving_up and self.rect.top > self.screen_rect.centery + 100:
             self.y -= self.settings.ship_vertical_speed
-        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom + 35:
             self.y += self.settings.ship_vertical_speed
 
         # Actualiza el objeto rect de self.x
