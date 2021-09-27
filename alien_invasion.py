@@ -3,6 +3,7 @@ import pygame
 
 from settings import Settings
 from nave import Ship
+from bullet import Bullet
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
@@ -25,6 +26,7 @@ class AlienInvasion:
                 (self.settings.setting_width, self.settings.setting_height)
             )
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
         # Configura el color de fondo
         self.bg_color = self.settings.bg_color
@@ -38,6 +40,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
         
     def _check_events(self):
@@ -66,6 +69,9 @@ class AlienInvasion:
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
             self.escape = 0
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+            self.escape = 0
         elif event.key == pygame.K_ESCAPE and self.escape < 1:   
             self.escape += 1
         elif event.key == pygame.K_ESCAPE and self.escape == 1:
@@ -79,12 +85,21 @@ class AlienInvasion:
         elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
             self.ship.moving_down = False
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
-            self.ship.moving_up = False  
+            self.ship.moving_up = False
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+    def _fire_bullet(self):
+        """Crea  una bala nueva y la añade al grupo de balas."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         pygame.display.flip()
 
