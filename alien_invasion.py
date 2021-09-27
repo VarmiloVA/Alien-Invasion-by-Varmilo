@@ -86,8 +86,6 @@ class AlienInvasion:
             self.ship.moving_down = False
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = False
-        elif event.key == pygame.K_SPACE:
-            self._fire_bullet()
 
     def _fire_bullet(self):
         """Crea  una bala nueva y la añade al grupo de balas."""
