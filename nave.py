@@ -37,7 +37,7 @@ class Ship:
             self.x += self.settings.ship_horizontal_speed
         if self.moving_left and self.rect.left > -35:
             self.x -= self.settings.ship_horizontal_speed
-        if self.moving_up and self.rect.top > self.screen_rect.centery + 100:
+        if self.moving_up and self.rect.top > self.screen_rect.centery + 150:
             self.y -= self.settings.ship_vertical_speed
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom + 35:
             self.y += self.settings.ship_vertical_speed
