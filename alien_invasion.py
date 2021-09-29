@@ -1,5 +1,6 @@
 import sys
 import pygame
+from pygame.sprite import Sprite
 
 from settings import Settings
 from nave import Ship
@@ -70,7 +71,7 @@ class AlienInvasion:
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
             self.escape = 0
-        elif event.key == pygame.K_SPACE:
+        elif event.key == pygame.K_e:
             self._fire_bullet()
             self.escape = 0
         elif event.key == pygame.K_ESCAPE and self.escape < 1:   
