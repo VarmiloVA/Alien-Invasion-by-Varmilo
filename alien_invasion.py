@@ -5,6 +5,7 @@ from pygame.sprite import Sprite
 from settings import Settings
 from nave import Ship
 from bullet import Bullet
+import inicial_screen
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
@@ -15,6 +16,8 @@ class AlienInvasion:
 
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
+        self.key_pressed = False
+        self.inicial_screen = inicial_screen.Screen(self)
 
         if self.formato_pantalla.upper() == 'COMPLETO':
             # El juego se abre en pantalla completa
@@ -40,10 +43,16 @@ class AlienInvasion:
     def run_game(self):
         """Inicia el bucle principal para el juego."""
         while True:
-            self._check_events()
-            self.ship.update()
-            self.bullets.update()
-            self._update_screen()
+            if self.key_pressed == False:
+                self._check_events()
+                self.ship.update()
+                self.bullets.update()
+                self._update_inicial_screen()
+            elif self.key_pressed:
+                self._check_events()
+                self.ship.update()
+                self.bullets.update()
+                self._update_screen()
         
     def _check_events(self):
         """Comprueba los eventos y responde a ellos"""
@@ -54,11 +63,14 @@ class AlienInvasion:
             #Comprueba los eventos de tipo keydown
             elif event.type == pygame.KEYDOWN:
                 self._keydown_events(event)
+                self.key_pressed = True
             #Comprueba los eventos de tipo keyup
             elif event.type == pygame.KEYUP:
                 self._keyup_events(event)
+                self.key_pressed = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self._mouse_down_events(event)
+                self.key_pressed = True
     
     def _keydown_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -107,6 +119,15 @@ class AlienInvasion:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+
+        pygame.display.flip()
+    
+    def _update_inicial_screen(self):
+        """Actualiza la pantalla mientras el usuario no haya presionado"""
+        """ninguna tecla o boton del mouse."""
+        self.screen.fill(self.settings.bg_color)
+        self.ship.blitme()
+        self.inicial_screen.image_show()
 
         pygame.display.flip()
 
