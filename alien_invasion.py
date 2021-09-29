@@ -57,6 +57,8 @@ class AlienInvasion:
             #Comprueba los eventos de tipo keyup
             elif event.type == pygame.KEYUP:
                 self._keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self._mouse_down_events(event)
     
     def _keydown_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -89,6 +91,11 @@ class AlienInvasion:
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = False
 
+    def _mouse_down_events(self, event):
+        if event.button == 1:
+            self._fire_bullet()
+            self.escape = 0
+
     def _fire_bullet(self):
         """Crea  una bala nueva y la añade al grupo de balas."""
         new_bullet = Bullet(self)
@@ -105,8 +112,5 @@ class AlienInvasion:
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
-    try:
-        ai = AlienInvasion('VENTANA')
-        ai.run_game()
-    except AttributeError:
-        print('atributos mal introducidos')
+    ai = AlienInvasion('VENTANA')
+    ai.run_game()
