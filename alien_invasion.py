@@ -5,20 +5,25 @@ from pygame.sprite import Sprite
 from settings import Settings
 from nave import Ship
 from bullet import Bullet
-import inicial_screen
 
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
-    def __init__(self, modo_pantalla):
+    def __init__(self, modo_pantalla, screen):
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
         self.key_pressed = False
-        self.inicial_screen = inicial_screen.Screen(self)
-
+        #---Prueba-------------------------------------------------------------
+        screen = self.screen = pygame.display.set_mode(
+                (self.settings.setting_width, self.settings.setting_height)
+            )
+        self.screen = screen
+        #---Prueba-------------------------------------------------------------
+        from inicial_screen import Screen
+        self.inicial_screen = Screen(self)
         if self.formato_pantalla.upper() == 'COMPLETO':
             # El juego se abre en pantalla completa
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -85,9 +90,6 @@ class AlienInvasion:
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
             self.escape = 0
-        elif event.key == pygame.K_e:
-            self._fire_bullet()
-            self.escape = 0
         elif event.key == pygame.K_ESCAPE and self.escape < 1:   
             self.escape += 1
         elif event.key == pygame.K_ESCAPE and self.escape == 1:
@@ -133,5 +135,5 @@ class AlienInvasion:
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
-    ai = AlienInvasion('VENTANA')
+    ai = AlienInvasion('VENTANA', 'patata')
     ai.run_game()
