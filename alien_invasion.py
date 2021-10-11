@@ -50,8 +50,6 @@ class AlienInvasion:
         while True:
             if self.key_pressed == False:
                 self._check_events()
-                self.ship.update()
-                self.bullets.update()
                 self._update_inicial_screen()
             elif self.key_pressed:
                 self._check_events()
@@ -68,14 +66,11 @@ class AlienInvasion:
             #Comprueba los eventos de tipo keydown
             elif event.type == pygame.KEYDOWN:
                 self._keydown_events(event)
-                self.key_pressed = True
             #Comprueba los eventos de tipo keyup
             elif event.type == pygame.KEYUP:
                 self._keyup_events(event)
-                self.key_pressed = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 self._mouse_down_events(event)
-                self.key_pressed = True
     
     def _keydown_events(self, event):
         if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
@@ -89,6 +84,9 @@ class AlienInvasion:
             self.escape = 0            
         elif event.key == pygame.K_UP or event.key == pygame.K_w:
             self.ship.moving_up = True
+            self.escape = 0
+        elif event.key == pygame.K_SPACE:
+            self.key_pressed = True
             self.escape = 0
         elif event.key == pygame.K_ESCAPE and self.escape < 1:   
             self.escape += 1
