@@ -14,7 +14,7 @@ class Settings:
         #Configuración de las balas
         self.bullet_speed = 1.0
         self.bullet_width = 3
-        self.bullet_height = 6
+        self.bullet_height = 3
         #Amarillo estándart: 255, 233, 0
         #Amarillo fosforito: 204, 255, 0
         self.bullet_color = (255, 233, 0)
