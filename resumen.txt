@@ -16,3 +16,9 @@ Ideas extra:
     Hacer resoluciones optativas 
 
     Ajuste de velocidad en un llamado "personalizado" 
+
+    Añadir niveles al juego que se pueden pasar en diferentes modos de 
+    dificultad
+
+    Cuando te hayas pasado todos los niveles del juegos en modo
+    extremo cada bala que dispares saldrá de un color diferente
