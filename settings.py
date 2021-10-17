@@ -21,4 +21,4 @@ class Settings:
 
         #Amarillo estándart: 255, 233, 0
         #Amarillo fosforito: 204, 255, 0
-        self.bullet_color = (204, 255, 0)
+        self.bullet_color = (204, 254, 0)
