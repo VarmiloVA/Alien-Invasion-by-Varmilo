@@ -3,9 +3,10 @@ import pygame
 from pygame.sprite import Sprite
 
 from settings import Settings
+from inicial_screen import Screen
 from nave import Ship
 from bullet import Bullet
-
+from ovni import Ufo
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
@@ -16,16 +17,17 @@ class AlienInvasion:
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
         self.key_pressed = False
-        #---Prueba-------------------------------------------------------------
-        screen = self.screen = pygame.display.set_mode(
+
+        screen = pygame.display.set_mode(
                 (self.settings.setting_width, self.settings.setting_height)
             )
+
         self.screen = screen
-        #---Prueba-------------------------------------------------------------
-        from inicial_screen import Screen
+
         self.inicial_screen = Screen(self)
+        
         if self.formato_pantalla.upper() == 'COMPLETO':
-            # El juego se abre en pantalla completa
+            #El juego se abre en pantalla completa
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             self.settings.screen_width = self.screen.get_rect().width
             self.settings.screen_height = self.screen.get_rect().height
@@ -37,12 +39,15 @@ class AlienInvasion:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
 
-        # Configura el color de fondo
+        self._create_fleet()
+
+        #Configura el color de fondo
         self.bg_color = self.settings.bg_color
 
-        # Variable que hace que el usuario tenga de darle dos veces a esc para 
-        # salir
+        #Variable que hace que el usuario tenga de darle dos veces a esc para 
+        #salir
         self.escape = 0
 
     def run_game(self):
@@ -123,6 +128,12 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+    
+    def _create_fleet(self):
+        """Crea una flota de aliens"""
+        #Crea un alien
+        alien = Ufo(self)
+        self.aliens.add(alien)
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
@@ -130,6 +141,7 @@ class AlienInvasion:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
 
         pygame.display.flip()
     
