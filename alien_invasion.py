@@ -19,7 +19,7 @@ class AlienInvasion:
         self.key_pressed = False
 
         screen = pygame.display.set_mode(
-                (self.settings.setting_width, self.settings.setting_height)
+                (self.settings.screen_width, self.settings.screen_height)
             )
 
         self.screen = screen
@@ -34,7 +34,7 @@ class AlienInvasion:
         elif self.formato_pantalla.upper() == 'VENTANA':
             # El juego se abre en una ventana
             self.screen = pygame.display.set_mode(
-                (self.settings.setting_width, self.settings.setting_height)
+                (self.settings.screen_width, self.settings.screen_height)
             )
 
         self.ship = Ship(self)
@@ -131,9 +131,20 @@ class AlienInvasion:
     
     def _create_fleet(self):
         """Crea una flota de aliens"""
-        #Crea un alien
+        #Crea un alien y halla el número de aliens en una fila
+        #El espacio entre aliens es igual a la anchura de 1 alien
         alien = Ufo(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        #Crea la primera fila de aliens.
+        for alien_number in range(number_aliens_x):
+            #Crea un alien y lo coloca en la fila.
+            alien = Ufo(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""

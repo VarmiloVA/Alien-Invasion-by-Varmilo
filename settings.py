@@ -4,8 +4,8 @@ class Settings:
     def __init__(self):
         """Inicializa la configuración del juego"""
         #Configuración de la pantalla
-        self.setting_width = 1100
-        self.setting_height = 700
+        self.screen_width = 1100
+        self.screen_height = 700
         self.bg_color = (93, 118, 142)
 
         #Apaño termporal para la velocidad que hay que cambiar
