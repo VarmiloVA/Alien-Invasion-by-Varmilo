@@ -139,6 +139,11 @@ class AlienInvasion:
         available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
 
+        #Determina el número de filas de aliens que caben en pantalla.
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - 
+                            (4.5 * alien_height) - ship_height)
+
         #Crea la primera fila de aliens.
         for alien_number in range(number_aliens_x):
             #Crea un alien y lo coloca en la fila.

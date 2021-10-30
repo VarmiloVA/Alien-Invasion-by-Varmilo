@@ -19,3 +19,6 @@ class Ufo(Sprite):
 
         #Guarda la posición horizontal del alien
         self.x = float(self.rect.x)
+
+        #Cantidad de flotas que caben en pantalla
+        
