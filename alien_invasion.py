@@ -135,26 +135,30 @@ class AlienInvasion:
         #Crea un alien y halla el número de aliens en una fila
         #El espacio entre aliens es igual a la anchura de 1 alien
         alien = Ufo(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
 
         #Determina el número de filas de aliens que caben en pantalla.
         ship_height = self.ship.rect.height
         available_space_y = (self.settings.screen_height - 
-                            (4.5 * alien_height) - ship_height)
+                            (4 * ship_height))
+        number_rows = int((available_space_y // (3 * alien_height)) // 1.5)
 
-        #Crea la primera fila de aliens.
-        for alien_number in range(number_aliens_x):
-            #Crea un alien y lo coloca en la fila.
-            self._create_alien(alien_number)
+
+        #Crea la flota completa de aliens.
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
     
-    def _create_alien(self, alien_number):
+    def _create_alien(self, alien_number, row_number):
         """Crea un alien y lo coloca en la fila."""
         alien = Ufo(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
+        alien.rect.y = (2* alien.rect.height + 2* alien.rect.height)* row_number
+        alien.rect.y += 25
         self.aliens.add(alien)
 
 
