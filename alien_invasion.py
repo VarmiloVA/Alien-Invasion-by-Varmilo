@@ -7,6 +7,7 @@ from inicial_screen import Screen
 from nave import Ship
 from bullet import Bullet
 from ufo import Ufo
+
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
