@@ -13,6 +13,13 @@ class Settings:
         self.ship_horizontal_speed = self.ship_speed
         self.ship_vertical_speed = self.ship_speed
 
+        #Velocidad enemigos
+        self.alien_speed = 1
+        self.fleet_drop_speed = 10
+
+        #fleet_direction de 1 representa derecha; -1 representa izquierda
+        self.fleet_direction = 1
+
         #Configuración de las balas
         self.bullet_speed = 4
         self.bullet_width = 3

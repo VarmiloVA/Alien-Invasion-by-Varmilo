@@ -60,6 +60,7 @@ class AlienInvasion:
             elif self.key_pressed:
                 self._check_events()
                 self.ship.update()
+                self._update_aliens()
                 self._update_bullets()
                 self._update_screen()
         
@@ -161,6 +162,25 @@ class AlienInvasion:
         alien.rect.y += 25
         self.aliens.add(alien)
 
+    def _check_fleet_edges(self):
+        """Responde adecuadamente si algún alien ha llegado a un borde."""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+    
+    def _change_fleet_direction(self):
+        """Baja toda la flota y cambia su dirección."""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+    
+    def _update_aliens(self):
+        """
+        Comprueba si la flota está en un borde, después actualiza las posiciones de todos los aliens de la flota.
+        """
+        self._check_fleet_edges()
+        self.aliens.update()
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
