@@ -13,7 +13,7 @@ and the speed of the ufos.
 have ~15 levels, when you complete all of them you will be abled to use cosmetic products. In
 custom you can select your speed and the enemy's speed.
 -Cosmetic products: when you have completed the ~15 levels, every bullet you shoot will be
-in a different color and you will be abled to select the game background.
+in a different color and you will be abled to select the game background color.
 
 The biggest issue, THE ENEMY'S MOVEMENT! (How to resolve the problem) (ES)
 (Sorry but this part will be in spanish 'cause I not sure how much sense will have this 
