@@ -9,7 +9,7 @@ class Settings:
         self.bg_color = (93, 118, 142)
 
         #Apaño termporal para la velocidad que hay que cambiar
-        self.ship_speed = 0.8
+        self.ship_speed = 0.9
         self.ship_horizontal_speed = self.ship_speed
         self.ship_vertical_speed = self.ship_speed
 
