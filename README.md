@@ -1,5 +1,5 @@
 # Alien-Invasion-by-Varmilo
-The Alien Invasion game made using Python and the pygame library
+The Alien Invasion game using Python and the pygame package
 
 In general:
 In Alien Invasion, the player controls a mothership. The player can control the mothership
