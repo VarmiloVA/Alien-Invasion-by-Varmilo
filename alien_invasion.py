@@ -146,7 +146,6 @@ class AlienInvasion:
                             (4 * ship_height))
         number_rows = int((available_space_y // (3 * alien_height)) // 1.5)
 
-
         #Crea la flota completa de aliens.
         for row_number in range(number_rows):
             for alien_number in range(number_aliens_x):
