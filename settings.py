@@ -9,19 +9,19 @@ class Settings:
         self.bg_color = (93, 118, 142)
 
         #Apaño termporal para la velocidad que hay que cambiar
-        self.ship_speed = 0.9
+        self.ship_speed = 2
         self.ship_horizontal_speed = self.ship_speed
         self.ship_vertical_speed = self.ship_speed
 
         #Velocidad enemigos
-        self.alien_speed = 0.4
-        self.fleet_drop_speed = 5
+        self.alien_speed = 0.8
+        self.fleet_drop_speed = 10
 
         #fleet_direction de 1 representa derecha; -1 representa izquierda
         self.fleet_direction = 1
 
         #Configuración de las balas
-        self.bullet_speed = 1
+        self.bullet_speed = 3
         self.bullet_width = 3
         self.bullet_height = 6
         self.max_bullet_num = 4
