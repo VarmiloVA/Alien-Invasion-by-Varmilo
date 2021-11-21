@@ -9,7 +9,7 @@ class Bullet(Sprite):
         super().__init__()
         self.screen = ai_game.screen
         self.settings = ai_game.settings
-        self.color = ai_game.settings.bullet_color
+        self.bullet_color = ai_game.settings.bullet_color
 
         #Crea un rectángulo para la bala en (0,0) y luego establece la 
         #posición correcta.
