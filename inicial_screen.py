@@ -14,7 +14,6 @@ class Screen():
         self.screen_rect = ai_game.screen.get_rect()
         self.rect = self.image.get_rect()
 
-
         #Coloca la imagen en su sitio correspondiente
         if ai_game.formato_pantalla.upper() == 'COMPLETO':
             self.rect.midtop = self.screen_rect.midtop
