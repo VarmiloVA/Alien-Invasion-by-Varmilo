@@ -106,7 +106,7 @@ class LivesCounter:
         if self.lives == 0:
             self.GameOver(self.ai_game)
 
-            self.death_3_rect.center = config_position(self.image_death, self.ai_game)
+            self.death_3_rect.center = config_position(self.image_death, self.ai_game, 1)
 
             self.death_2_rect.center = config_position(self.image_death, self.ai_game, 2)
 
