@@ -17,6 +17,5 @@ def config_position(image, rect, ai_game, position):
     rect_clone = image.get_rect()
     rect_clone.center = screen_rect.bottomright
     tuple_rect_value = (rect_clone[0] - (flag * image_width), rect_clone[1])
-    rect.center = tuple_rect_value
 
-    return rect.center
+    return tuple_rect_value
