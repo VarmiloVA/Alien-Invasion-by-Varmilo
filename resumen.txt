@@ -9,6 +9,11 @@ alien toca la nave del jugador o llega al fondo de la pantalla, el jugador
 pierde una vida. Cuando el jugador pierde tres vidas, el juego termina.
 
 Ideas extra:
+    PRIORITARIO: hacer que cuando aparece la pantalla de Game Over el número
+    de vidas con el cero parpadee 2 veces por segundo además de que toda la
+    pantalla tome un tono rojizo y añadir en el game over que si le das 
+    a enter que es reinicie el juego.
+
     Hacer niveles de dificultad, la dificultad dependera de la velocidad a la 
     que va tu nave (cuanto mayor la dificultad, menor la velocidad de la
     nave y mayor de los enemigos)
@@ -22,3 +27,5 @@ Ideas extra:
 
     Cuando te hayas pasado todos los niveles del juegos en modo
     extremo cada bala que dispares saldrá de un color diferente
+
+    Cambiar la forma en la que se indican las vidas actualmente por un corazón con un número dentro. 

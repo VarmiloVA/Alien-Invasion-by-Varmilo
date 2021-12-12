@@ -3,7 +3,7 @@ import pygame
 from pygame.sprite import Sprite
 
 from settings import Settings
-from inicial_screen import Screen
+from screen_elements import *
 from nave import Ship
 from bullet import Bullet
 from ufo import Ufo
@@ -18,6 +18,7 @@ class AlienInvasion:
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
         self.key_pressed = False
+        self.number_lives = self.settings.lives_number
 
         screen = pygame.display.set_mode(
                 (self.settings.screen_width, self.settings.screen_height)
@@ -25,8 +26,10 @@ class AlienInvasion:
 
         self.screen = screen
 
-        self.inicial_screen = Screen(self)
-        
+        self.inicial_screen = InicialScreen(self)
+        self.lives = LivesCounter(self)
+        self.game_over = GameOver(self)
+
         if self.formato_pantalla.upper() == 'COMPLETO':
             #El juego se abre en pantalla completa
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -52,7 +55,7 @@ class AlienInvasion:
         self.escape = 0
 
     def run_game(self):
-        """Inicia el bucle principal para el juego."""
+        """Inicia el bucle para el juego."""
         while True:
             if self.key_pressed == False:
                 self._check_events()
@@ -176,7 +179,8 @@ class AlienInvasion:
     
     def _update_aliens(self):
         """
-        Comprueba si la flota está en un borde, después actualiza las posiciones de todos los aliens de la flota.
+        Comprueba si la flota está en un borde, después actualiza las 
+        posiciones de todos los aliens de la flota.
         """
         self._check_fleet_edges()
         self.aliens.update()
@@ -188,6 +192,8 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        self.lives.show_lives_number()
 
         pygame.display.flip()
     
