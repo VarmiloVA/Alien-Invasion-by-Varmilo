@@ -78,7 +78,9 @@ class LivesCounter:
             self.live_3_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 3) 
             
             #Intentar quitar el número en image_live_x.
-            
+            print(self.live_1_rect.center)
+            print(self.live_2_rect.center)
+            print(self.live_3_rect.center)
 
             self.screen.blit(self.image_live_1, self.live_1_rect)
             self.screen.blit(self.image_live_2, self.live_2_rect)
