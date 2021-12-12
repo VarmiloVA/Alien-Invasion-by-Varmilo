@@ -56,13 +56,13 @@ class LivesCounter:
         self.imgae_death_3 = self.image_death
 
         #Configura los rects de cada unas de las VIDAS.
-        self.live_1_rect = self.image_live_rect
-        self.live_2_rect = self.image_live_rect
-        self.live_3_rect = self.image_live_rect
+        self.live_1_rect = self.image_live_rect.copy()
+        self.live_2_rect = self.image_live_rect.copy()
+        self.live_3_rect = self.image_live_rect.copy()
         #Configura los rescts de cada una de las MUERTES.
-        self.death_1_rect = self.image_death_rect
-        self.death_2_rect = self.image_death_rect
-        self.death_3_rect = self.image_death_rect
+        self.death_1_rect = self.image_death_rect.copy()
+        self.death_2_rect = self.image_death_rect.copy()
+        self.death_3_rect = self.image_death_rect.copy()
 
         #Determina el tamaño del rect de los corazones
         self.live_width, self.live_height = self.image_live.get_size() 
@@ -76,12 +76,7 @@ class LivesCounter:
             self.live_2_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 2)
 
             self.live_3_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 3) 
-            
-            #Intentar quitar el número en image_live_x.
-            print(self.live_1_rect.center)
-            print(self.live_2_rect.center)
-            print(self.live_3_rect.center)
-
+       
             self.screen.blit(self.image_live_1, self.live_1_rect)
             self.screen.blit(self.image_live_2, self.live_2_rect)
             self.screen.blit(self.image_live_3, self.live_3_rect)
