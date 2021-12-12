@@ -71,33 +71,33 @@ class LivesCounter:
     def show_lives_number(self):
         """Muestra el número de vidas junto a un corazón"""
         if self.lives == 3:
-            self.live_1_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 1)
+            self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
-            self.live_2_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 2)
+            self.live_2_rect.center = config_position(self.image_live, self.ai_game, 2)
 
-            self.live_3_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 3) 
+            self.live_3_rect.center = config_position(self.image_live, self.ai_game, 3) 
        
             self.screen.blit(self.image_live_1, self.live_1_rect)
             self.screen.blit(self.image_live_2, self.live_2_rect)
             self.screen.blit(self.image_live_3, self.live_3_rect)
 
         if self.lives == 2:
-            self.live_1_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 1)
+            self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
-            self.live_2_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 2)
+            self.live_2_rect.center = config_position(self.image_live, self.ai_game, 2)
 
-            self.death_1_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game, 3)
+            self.death_1_rect.center = config_position(self.image_death, self.ai_game, 3)
 
             self.screen.blit(self.image_live, self.live_1_rect)
             self.screen.blit(self.image_live, self.live_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
         
         if self.lives == 1:
-            self.live_1_rect.center = config_position(self.image_live, self.image_live_rect, self.ai_game, 1)
+            self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
-            self.death_2_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game, 2)
+            self.death_2_rect.center = config_position(self.image_death, self.ai_game, 2)
 
-            self.death_1_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game, 3)
+            self.death_1_rect.center = config_position(self.image_death, self.ai_game, 3)
 
             self.screen.blit(self.image_live, self.live_1_rect)
             self.screen.blit(self.image_death, self.death_2_rect)
@@ -106,11 +106,11 @@ class LivesCounter:
         if self.lives == 0:
             self.GameOver(self.ai_game)
 
-            self.death_3_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game)
+            self.death_3_rect.center = config_position(self.image_death, self.ai_game)
 
-            self.death_2_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game, 2)
+            self.death_2_rect.center = config_position(self.image_death, self.ai_game, 2)
 
-            self.death_1_rect.center = config_position(self.image_death, self.image_death_rect, self.ai_game, 3)
+            self.death_1_rect.center = config_position(self.image_death, self.ai_game, 3)
 
             self.screen.blit(self.image_death, self.death_3_rect)
             self.screen.blit(self.image_death, self.death_2_rect)
