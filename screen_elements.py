@@ -41,9 +41,11 @@ class LivesCounter:
         #Carga las diferentes imágenes
         self.image_live = pygame.image.load('images/live.bmp')
         self.image_death = pygame.image.load('images/death.bmp')
+        self.game_over_image = pygame.image.load('images/game_over.bmp')
         #Carga los rects de las diferentes imágenes
         self.image_live_rect = self.image_live.get_rect()
         self.image_death_rect = self.image_death.get_rect()
+        self.game_over_image_rect = self.game_over_image.get_rect()
 
         #Configura el corazón correspondiente a cada una de las vidas/muertes.
         #Configura las imágenes de las VIDAS
@@ -104,30 +106,21 @@ class LivesCounter:
             self.screen.blit(self.image_death, self.death_1_rect)
 
         if self.lives == 0:
-            self.GameOver(self.ai_game)
-
+            """Muestra una pantalla de game over junto a 3 corazones negros."""
             self.death_3_rect.center = config_position(self.image_death, self.ai_game, 1)
 
             self.death_2_rect.center = config_position(self.image_death, self.ai_game, 2)
 
             self.death_1_rect.center = config_position(self.image_death, self.ai_game, 3)
 
+            self.screen.blit(self.game_over_image, self.config_game_over_show())
             self.screen.blit(self.image_death, self.death_3_rect)
             self.screen.blit(self.image_death, self.death_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
 
-class GameOver(LivesCounter):
-        """Te muestra una pantalla de Game Over cuando te quedas sin vidas"""
-        def __init__(self, ai_game):
-            super().__init__(ai_game)
-            self.game_over_image = pygame.image.load('images/game_over.bmp')
-            self.game_over_image_rect = self.game_over_image.get_rect()
-
-        def game_over_show(self):
-            """Muestra la pantalla de Game Over"""
+    def config_game_over_show(self):
+            """Prepara la pantalla de game over para ser mostrada"""
             if self.lives <= 0:
-                self.game_over_image.center = self.screen_rect.middle
-                self.game_over_image_rect = self.game_over_image_rect.center
-                self.screen.blit(
-                    self.game_over_image, self.game_over_image_rect
-                    )
+                self.game_over_image_rect = (self.screen_rect[0] // 2, self.screen_rect[1] // 2)
+                
+                return self.game_over_image_rect

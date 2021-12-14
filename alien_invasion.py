@@ -28,7 +28,6 @@ class AlienInvasion:
 
         self.inicial_screen = InicialScreen(self)
         self.lives = LivesCounter(self)
-        self.game_over = GameOver(self)
 
         if self.formato_pantalla.upper() == 'COMPLETO':
             #El juego se abre en pantalla completa
