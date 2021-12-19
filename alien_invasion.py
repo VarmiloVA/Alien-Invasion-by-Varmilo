@@ -135,7 +135,7 @@ class AlienInvasion:
         
         #Busca balas que hayan dado a aliens.
         #Si hay, se deshace de la bala y del alien.
-        colissions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
     
     def _create_fleet(self):
         """Crea una flota de aliens"""
