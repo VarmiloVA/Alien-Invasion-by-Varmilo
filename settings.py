@@ -23,7 +23,7 @@ class Settings:
 
         #Configuración de las balas
         self.bullet_speed = 3
-        self.bullet_width = 1100
+        self.bullet_width = 3
         self.bullet_height = 6
         self.max_bullet_num = 4
 
