@@ -195,6 +195,11 @@ class AlienInvasion:
         self._check_fleet_edges()
         self.aliens.update()
 
+        #Busca colisiones alien-nave.
+        if pygame.sprite.spritecollideany(self.ship ,self.aliens):
+            self.number_lives -= 1
+            print(self.number_lives)
+
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
         self.screen.fill(self.settings.bg_color)

@@ -33,7 +33,6 @@ class LivesCounter:
         """Clase para crear un contador de vidas"""
         pygame.init()
         self.ai_game = ai_game
-        self.lives = ai_game.number_lives
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings= ai_game.settings
@@ -72,7 +71,7 @@ class LivesCounter:
 
     def show_lives_number(self):
         """Muestra el número de vidas junto a un corazón"""
-        if self.lives == 3:
+        if self.ai_game.number_lives == 3:
             self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
             self.live_2_rect.center = config_position(self.image_live, self.ai_game, 2)
@@ -83,7 +82,7 @@ class LivesCounter:
             self.screen.blit(self.image_live_2, self.live_2_rect)
             self.screen.blit(self.image_live_3, self.live_3_rect)
 
-        if self.lives == 2:
+        if self.ai_game.number_lives == 2:
             self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
             self.live_2_rect.center = config_position(self.image_live, self.ai_game, 2)
@@ -94,7 +93,7 @@ class LivesCounter:
             self.screen.blit(self.image_live, self.live_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
         
-        if self.lives == 1:
+        if self.ai_game.number_lives == 1:
             self.live_1_rect.center = config_position(self.image_live, self.ai_game, 1)
 
             self.death_2_rect.center = config_position(self.image_death, self.ai_game, 2)
@@ -105,7 +104,7 @@ class LivesCounter:
             self.screen.blit(self.image_death, self.death_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
 
-        if self.lives == 0:
+        if self.ai_game.number_lives <= 0:
             """Muestra una pantalla de game over junto a 3 corazones negros."""
             self.death_3_rect.center = config_position(self.image_death, self.ai_game, 1)
 
@@ -120,7 +119,7 @@ class LivesCounter:
 
     def config_game_over_show(self):
             """Prepara la pantalla de game over para ser mostrada"""
-            if self.lives <= 0:
+            if self.ai_game.number_lives <= 0:
                 self.game_over_image_rect = (self.screen_rect[0] // 2, self.screen_rect[1] // 2)
                 
                 return self.game_over_image_rect
