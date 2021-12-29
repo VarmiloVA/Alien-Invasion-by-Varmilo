@@ -15,7 +15,7 @@ class Settings:
         self.ship_vertical_speed = self.ship_speed
 
         #Velocidad enemigos
-        self.alien_speed = 0.8
+        self.alien_speed = 15
         self.fleet_drop_speed = 10
 
         #fleet_direction de 1 representa derecha; -1 representa izquierda

@@ -6,17 +6,14 @@ class Ship:
     def __init__(self, ai_game):
         """Inicializa la nave y configura su posición inicial."""
         self.screen = ai_game.screen
-        self.screen_rect = ai_game.screen.get_rect()
+        self.screen_rect = ai_game.screen_rect
         self.settings = ai_game.settings
 
         #Carga la imagen de la nave y obtiene su rect.
         self.image = pygame.image.load('images/ship.bmp')
-
         self.rect = self.image.get_rect()
 
-        # Coloca en el centro de la parte inferior de la pantalla cada nave
-        # nueva.
-        self.rect.midbottom = self.screen_rect.midbottom
+        self._center_ship()
 
         #Bandera de movimiento
         self.moving_right = False
@@ -28,6 +25,12 @@ class Ship:
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
     
+    def _center_ship(self):
+        """Coloca la nave en el lugar inicial/de reaparición"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y) - 10
+        
     def update(self):
         """Actualiza la posición de la nave en función de las banderas de 
         movimiento"""
