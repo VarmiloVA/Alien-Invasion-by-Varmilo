@@ -36,6 +36,7 @@ class LivesCounter:
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings= ai_game.settings
+        self.game_over_screen = False
 
         #Carga las diferentes imágenes
         self.image_live = pygame.image.load('images/live.bmp')
@@ -68,6 +69,9 @@ class LivesCounter:
         #Determina el tamaño del rect de los corazones
         self.live_width, self.live_height = self.image_live.get_size() 
         self.death_width, self.death_height = self.image_death.get_size()
+    
+    def reset_lives(self):
+        self.ai_game.number_lives = self.settings.number_lives
 
     def show_lives_number(self):
         """Muestra el número de vidas junto a un corazón"""
@@ -80,6 +84,8 @@ class LivesCounter:
             self.screen.blit(self.image_live_2, self.live_2_rect)
             self.screen.blit(self.image_live_3, self.live_3_rect)
 
+            game_over_screen = False
+
         if self.ai_game.number_lives == 2:
             self.live_1_rect.center = config_position_lives(self.image_live, self.ai_game, 1)
             self.live_2_rect.center = config_position_lives(self.image_live, self.ai_game, 2)
@@ -88,6 +94,8 @@ class LivesCounter:
             self.screen.blit(self.image_live, self.live_1_rect)
             self.screen.blit(self.image_live, self.live_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
+
+            game_over_screen = False
         
         if self.ai_game.number_lives == 1:
             self.live_1_rect.center = config_position_lives(self.image_live, self.ai_game, 1)
@@ -98,19 +106,26 @@ class LivesCounter:
             self.screen.blit(self.image_death, self.death_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
 
-        if self.ai_game.number_lives <= 0:
-            """Muestra una pantalla de game over junto a 3 corazones negros."""
-            self.death_3_rect.center = config_position_lives(self.image_death, self.ai_game, 1)
-            self.death_2_rect.center = config_position_lives(self.image_death, self.ai_game, 2)
-            self.death_1_rect.center = config_position_lives(self.image_death, self.ai_game, 3)
+            game_over_screen = False
 
-            self.screen.blit(self.game_over_image, self.config_game_over_show())
-            self.screen.blit(self.image_death, self.death_3_rect)
-            self.screen.blit(self.image_death, self.death_2_rect)
-            self.screen.blit(self.image_death, self.death_1_rect)
+        if self.ai_game.number_lives <= 0:
+            self._show_game_over()
+    
+    def _show_game_over(self):
+        """Muestra una pantalla de game over junto a 3 corazones negros."""
+        self.death_3_rect.center = config_position_lives(self.image_death, self.ai_game, 1)
+        self.death_2_rect.center = config_position_lives(self.image_death, self.ai_game, 2)
+        self.death_1_rect.center = config_position_lives(self.image_death, self.ai_game, 3)
+
+        self.screen.blit(self.game_over_image, self.config_game_over_show())
+        self.screen.blit(self.image_death, self.death_3_rect)
+        self.screen.blit(self.image_death, self.death_2_rect)
+        self.screen.blit(self.image_death, self.death_1_rect)
+
+        game_over_screen = True
             
-            restart_button = ResetButton(self.ai_game)
-            restart_button.draw_button()
+        restart_button = ResetButton(self.ai_game)
+        restart_button.draw_button()
 
     def config_game_over_show(self):
             """Prepara la pantalla de game over para ser mostrada"""

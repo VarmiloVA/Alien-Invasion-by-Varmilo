@@ -12,14 +12,14 @@ from ufo import Ufo
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
-    def __init__(self, modo_pantalla, screen):
+    def __init__(self, modo_pantalla, screen, status):
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
-        self.key_pressed = False
-        self.number_lives = self.settings.lives_number
+        self.key_pressed = status
+        self.number_lives = self.settings.number_lives
 
         self.screen = pygame.display.set_mode(
                 (self.settings.screen_width, self.settings.screen_height)
@@ -28,7 +28,9 @@ class AlienInvasion:
 
         self.inicial_screen = InicialScreen(self)
         self.lives = LivesCounter(self)
+        self.game_over_screen = self.lives.game_over_screen
         self.points = Points(self)
+        self.restart_button = ResetButton(self)
 
         if self.formato_pantalla.upper() == 'COMPLETO':
             #El juego se abre en pantalla completa
@@ -57,9 +59,10 @@ class AlienInvasion:
     def run_game(self):
         """Inicia el bucle para el juego."""
         self.points.reset_points()
+        self.stop_game = False
 
-        while True:
-            if self.key_pressed == False:
+        while self.stop_game == False:
+            if not self.key_pressed:
                 self._check_events()
                 self._update_inicial_screen()
             elif self.key_pressed:
@@ -68,7 +71,11 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_screen()
-        
+        while self.stop_game:
+            self._update_screen()
+            self.points.reset_points()
+            self._check_events()       
+
     def _check_events(self):
         """Comprueba los eventos y responde a ellos"""
         for event in pygame.event.get():
@@ -116,9 +123,13 @@ class AlienInvasion:
             self.ship.moving_up = False
 
     def _mouse_down_events(self, event):
-        if event.button == 1:
-            self._fire_bullet()
-            self.escape = 0
+        if self.stop_game == False:
+            if event.button == 1:
+                self._fire_bullet()
+                self.escape = 0
+        elif self.stop_game == True:
+            mouse_pos = pygame.mouse.get_pos()
+            self._check_restart_button(mouse_pos)
 
     def _fire_bullet(self):
         """Crea  una bala nueva y la añade al grupo de balas."""
@@ -142,7 +153,6 @@ class AlienInvasion:
         #Retira todas las balas y aliens que han chocado.
         if pygame.sprite.groupcollide(self.bullets, self.aliens, True, True):
             self.points.points += 1
-            print(self.points.points)
 
         if not self.aliens:
             # Destruye las balas existentes y crea una flota nueva.
@@ -219,10 +229,22 @@ class AlienInvasion:
         self.aliens.empty()
         self.bullets.empty()
 
-        self._create_fleet()
-        self.ship._center_ship()
+        if self.number_lives >= 1:
+            self._create_fleet()
+            self.ship._center_ship()
+            sleep(0.2)
+        elif self.number_lives == 0:
+            sleep(0.3)
+            self.stop_game = True
 
-        sleep(0.2)
+    def _check_restart_button(self, mouse_pos):
+        """Reinicia el juego cuando el jugador hace click en 'Restart'"""
+        if self.restart_button.rect.collidepoint(mouse_pos):
+            self.instancia = AlienInvasion('VENTANA', 'patata', True)
+            x = self.instancia.run_game()
+            self.stop_game = False
+            self.lives.number_lives = self.settings.number_lives 
+            return x, self.stop_game
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
@@ -236,7 +258,7 @@ class AlienInvasion:
         self.points.show_points()
 
         pygame.display.flip()
-    
+        
     def _update_inicial_screen(self):
         """Actualiza la pantalla mientras el usuario no haya presionado"""
         """ninguna tecla o boton del mouse."""
@@ -248,5 +270,5 @@ class AlienInvasion:
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
-    ai = AlienInvasion('VENTANA', 'patata')
+    ai = AlienInvasion('VENTANA', 'patata', False)
     ai.run_game()
