@@ -216,31 +216,43 @@ class LeaderBoard():
     def get_best_scores(self):
         #Se meten en una lista las 3 mejores puntuaciones:
         for i in self.leaderboard_dic:
-            self.scores.append(leaderboard_dic[i])
+            try:
+                if self.leaderboard_dic[i] not in self.scores:
+                    self.scores.append(self.leaderboard_dic[i])
+                    self.scores.sort(reverse=True)
+                else:
+                    self.scores.sort(reverse=True)
+            except:
+                pass
 
-        self.scores.sort(reverse=True)
-
-        num_flag = 0
-        while len(self.scores) > 3
-            if num_flag < 3:
-                num_flag += 1
-            elif num_flag > 3:
-                self.scores.pop(num_flag)
-                num_flag += 1
+        return self.scores
     
     def get_users(self):
-        for i in range(0, 2):
-            user = _get_key(self.scores[i])
-            self.users.append(user)
-
+        for i in range(len(self.leaderboard_dic.items())):
+            try:
+                if self._get_key(self.scores[i]) not in self.users:
+                    user = self._get_key(self.scores[i])
+                    self.users.append(user)
+                    return self.users
+            except:
+                pass
+                
     def _get_key(self, score):
-        for key, value in self.leaderboard_dic:
-            if score == value:
-                return key
+        for k,v in self.leaderboard_dic.items():
+            if score == v:
+                return k
 
     def create_lb_dic(self):
-        self.leaderboard = {
-            self.users[0]: self.scores[0],
-            self.users[1]: self.scores[1],
-            self.users[2]: self.scores[2]
-        }
+        self.get_best_scores()
+        self.get_users()
+        try:
+            self.leaderboard = {
+                self.users[0]: self.scores[0],
+                self.users[1]: self.scores[1],
+                self.users[2]: self.scores[2]
+            }
+        except IndexError:
+            pass
+
+        if len(self.leaderboard.items()) >= 3:
+            return self.leaderboard 

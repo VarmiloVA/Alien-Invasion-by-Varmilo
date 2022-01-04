@@ -31,6 +31,7 @@ class AlienInvasion:
         self.game_over_screen = self.lives.game_over_screen
         self.points = Points(self)
         self.restart_button = ResetButton(self)
+        self.leaderboard = LeaderBoard()
 
         if self.formato_pantalla.upper() == 'COMPLETO':
             #El juego se abre en pantalla completa
