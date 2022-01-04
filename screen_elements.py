@@ -182,13 +182,13 @@ class Points:
 
         #Crea el rect donde se van a representar los puntos.
         self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.bottomleft = self.screen_rect.bottomleft
+        self.rect.topright = self.screen_rect.topright
 
     def _prep_num(self, points):
         """Convierte los números en una imagen renderizada"""
         self.num_image = self.font.render(points, True, self.number_color, self.rect_color)
         self.num_image_rect = self.num_image.get_rect()
-        self.num_image_rect.bottomleft = self.rect.bottomleft
+        self.num_image_rect.topright = self.rect.topright
 
     def reset_points(self):
         """Reinicia las estadísticas cuando se empieza una nueva partida"""
