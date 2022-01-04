@@ -171,23 +171,31 @@ class Points:
     def __init__(self, ai_game):
         self.ai_game = ai_game
         self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen_rect
         self.points = 0
 
-        #Cargar las diferentes imágenes y sus rects
-        self.number_zero = pygame.image.load('images/number0.bmp')
-        self.number_one = pygame.image.load('images/number1.bmp')
-        self.number_five = pygame.image.load('images/number5.bmp')
+        #Configura el rect en el que se va a representar el número de puntos.
+        self.width, self.height = 1, 1
+        self.rect_color = (93, 118, 142)
+        self.number_color = (0,0,0)
+        self.font = pygame.font.SysFont(None, 30)
 
-        self.number_zero_rect = self.number_zero.get_rect()
-        self.number_one_rect = self.number_one.get_rect()
-        self.number_five_rect = self.number_five.get_rect()
+        #Crea el rect donde se van a representar los puntos.
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.bottomleft = self.screen_rect.bottomleft
 
-        self.config_points = ConfigPoints(self.ai_game)
+    def _prep_num(self, points):
+        """Convierte los números en una imagen renderizada"""
+        self.num_image = self.font.render(points, True, self.number_color, self.rect_color)
+        self.num_image_rect = self.num_image.get_rect()
+        self.num_image_rect.bottomleft = self.rect.bottomleft
 
     def reset_points(self):
         """Reinicia las estadísticas cuando se empieza una nueva partida"""
         self.points = 0
     
     def show_points(self):
-        if self.points == 5:
-            self.config_points.config_points(self.number_five, 1)
+        #Prepara los números quwe van a aparecer en el botón
+        self._prep_num(str(self.points))
+
+        self.screen.blit(self.num_image, self.num_image_rect)

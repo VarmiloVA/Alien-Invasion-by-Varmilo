@@ -32,4 +32,4 @@ class Settings:
         self.bullet_color = (204, 254, 0)
 
         #Número de vidas.
-        self.number_lives = 3
+        self.number_lives = 2
