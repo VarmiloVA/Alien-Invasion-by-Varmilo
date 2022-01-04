@@ -1,6 +1,7 @@
 import pygame
 import pygame.font
 import sys
+import json
 
 from settings import Settings
 from rect_config import *
@@ -199,3 +200,47 @@ class Points:
         self._prep_num(str(self.points))
 
         self.screen.blit(self.num_image, self.num_image_rect)
+
+class LeaderBoard():
+    def __init__(self):
+        self.json_file = "leaderboard.json"
+        self.scores = []
+        self.users = []
+        self.leaderboard = {}
+        #Leer los datos contenidos en el archivo json.
+        with open(self.json_file, "r") as lb:
+            c = lb.read()
+        dic = json.loads(c)
+        self.leaderboard_dic = dic["leaderboard"]
+
+    def get_best_scores(self):
+        #Se meten en una lista las 3 mejores puntuaciones:
+        for i in self.leaderboard_dic:
+            self.scores.append(leaderboard_dic[i])
+
+        self.scores.sort(reverse=True)
+
+        num_flag = 0
+        while len(self.scores) > 3
+            if num_flag < 3:
+                num_flag += 1
+            elif num_flag > 3:
+                self.scores.pop(num_flag)
+                num_flag += 1
+    
+    def get_users(self):
+        for i in range(0, 2):
+            user = _get_key(self.scores[i])
+            self.users.append(user)
+
+    def _get_key(self, score):
+        for key, value in self.leaderboard_dic:
+            if score == value:
+                return key
+
+    def create_lb_dic(self):
+        self.leaderboard = {
+            self.users[0]: self.scores[0],
+            self.users[1]: self.scores[1],
+            self.users[2]: self.scores[2]
+        }
