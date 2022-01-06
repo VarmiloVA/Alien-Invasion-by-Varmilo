@@ -204,30 +204,27 @@ class Points:
 class LeaderBoard():
     def __init__(self):
         self.json_file = "leaderboard.json"
-        self.scores = []
-        self.users = []
-        self.leaderboard = {}
         #Leer los datos contenidos en el archivo json.
-        with open(self.json_file, "r") as lb:
-            c = lb.read()
-        dic = json.loads(c)
+        with open(self.json_file, "r") as leaderboard_file:
+            read = leaderboard_file.read()
+
+        dic = json.loads(read)
         self.leaderboard_dic = dic["leaderboard"]
 
     def get_best_scores(self):
         #Se meten en una lista las 3 mejores puntuaciones:
-        for i in self.leaderboard_dic:
-            try:
-                if self.leaderboard_dic[i] not in self.scores:
-                    self.scores.append(self.leaderboard_dic[i])
-                    self.scores.sort(reverse=True)
-                else:
-                    self.scores.sort(reverse=True)
-            except:
-                pass
+        self.scores = []
+        for i in self.leaderboard_dic.keys():
+            if self.leaderboard_dic[i] != None and self.leaderboard_dic[i] not in self.scores:
+                self.leaderboard_dic[i] = int(self.leaderboard_dic[i]) 
+                    
+                self.scores.append(self.leaderboard_dic[i])
 
         return self.scores
-    
+            
     def get_users(self):
+        #Saca una lista con los 3 jugadores con mejor puntuación.
+        self.users = []
         for i in range(len(self.leaderboard_dic.items())):
             try:
                 if self._get_key(self.scores[i]) not in self.users:
@@ -238,21 +235,35 @@ class LeaderBoard():
                 pass
                 
     def _get_key(self, score):
+        #Busca las llaves correspondientes con los 3 mejores scores
         for k,v in self.leaderboard_dic.items():
             if score == v:
                 return k
 
-    def create_lb_dic(self):
+    def create_lb_dict(self):
+        self.lb = {}
         self.get_best_scores()
         self.get_users()
         try:
-            self.leaderboard = {
+            self.lb = {
                 self.users[0]: self.scores[0],
                 self.users[1]: self.scores[1],
                 self.users[2]: self.scores[2]
             }
         except IndexError:
-            pass
+            print(f'{IndexError} en el dict inicial de create_lb_dict')
 
-        if len(self.leaderboard.items()) >= 3:
-            return self.leaderboard 
+        if len(self.lb.values()) == 3:
+            lb_sorted_values = sorted(self.lb.values(), reverse=True)
+            self.lb_sorted = {}
+
+            #Crear un diccionario con orden de mayor a menor segun los scores.
+            for i in lb_sorted_values:
+                for k in self.lb.keys():
+                    if self.lb[k] == i:
+                        self.lb_sorted[k] = self.lb[k]
+            
+            return self.lb_sorted
+            
+        elif len(self.lb.values()) > 3 or len(self.lb.values()) < 3:
+            return print("Error, el len(dict leaderboard) > 3") 
