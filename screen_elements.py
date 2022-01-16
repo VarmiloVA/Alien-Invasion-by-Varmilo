@@ -85,7 +85,7 @@ class LivesCounter:
             self.screen.blit(self.image_live_2, self.live_2_rect)
             self.screen.blit(self.image_live_3, self.live_3_rect)
 
-            game_over_screen = False
+            self.game_over_screen = False
 
         if self.ai_game.number_lives == 2:
             self.live_1_rect.center = config_position_lives(self.image_live, self.ai_game, 1)
@@ -96,7 +96,7 @@ class LivesCounter:
             self.screen.blit(self.image_live, self.live_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
 
-            game_over_screen = False
+            self.game_over_screen = False
         
         if self.ai_game.number_lives == 1:
             self.live_1_rect.center = config_position_lives(self.image_live, self.ai_game, 1)
@@ -107,9 +107,9 @@ class LivesCounter:
             self.screen.blit(self.image_death, self.death_2_rect)
             self.screen.blit(self.image_death, self.death_1_rect)
 
-            game_over_screen = False
+            self.game_over_screen = False
 
-        if self.ai_game.number_lives <= 0:
+        if self.ai_game.number_lives <= 0: 
             self._show_game_over()
     
     def _show_game_over(self):
@@ -122,8 +122,9 @@ class LivesCounter:
         self.screen.blit(self.image_death, self.death_3_rect)
         self.screen.blit(self.image_death, self.death_2_rect)
         self.screen.blit(self.image_death, self.death_1_rect)
+        print(self.image_death.get_size())
 
-        game_over_screen = True
+        self.game_over_screen = True
             
         restart_button = ResetButton(self.ai_game)
         restart_button.draw_button()
@@ -148,7 +149,7 @@ class ResetButton():
         self.width, self.height = 200, 50
         self.button_color = (20, 150, 200)
         self.text_color = (0, 0, 0)
-        self.font = pygame.font.SysFont(None, 40)
+        self.font = pygame.font.SysFont('Calibri', 40)
 
         #Crea el objeto rect del botón y lo centra.
         self.rect = pygame.Rect(0, 0, self.width, self.height)
@@ -179,7 +180,7 @@ class Points:
         self.width, self.height = 1, 1
         self.rect_color = (93, 118, 142)
         self.number_color = (0,0,0)
-        self.font = pygame.font.SysFont(None, 30)
+        self.font = pygame.font.SysFont('Calibri', 30)
 
         #Crea el rect donde se van a representar los puntos.
         self.rect = pygame.Rect(0, 0, self.width, self.height)
@@ -196,14 +197,15 @@ class Points:
         self.points = 0
     
     def show_points(self):
-        #Prepara los números quwe van a aparecer en el botón
+        #Prepara los números que van a aparecer en el botón
         self._prep_num(str(self.points))
 
         self.screen.blit(self.num_image, self.num_image_rect)
 
 class LeaderBoard():
-    def __init__(self):
+    def __init__(self, ai_game):
         self.json_file = "leaderboard.json"
+        self.screen = ai_game.screen
         #Leer los datos contenidos en el archivo json.
         with open(self.json_file, "r") as leaderboard_file:
             read = leaderboard_file.read()
@@ -267,3 +269,22 @@ class LeaderBoard():
             
         elif len(self.lb.values()) > 3 or len(self.lb.values()) < 3:
             return print("Error, el len(dict leaderboard) > 3") 
+
+    def show_leaderboard(self):
+        """shows the leaderboard"""
+        #Obtiene el diccionario con la leaderboard ordenada
+        lb_dict = self.create_lb_dict()
+        #Define diferentes parámetros referidos a mostrar la leaderboard
+        width, height = 150, 20
+        rect_bg_color = (93, 118, 142)
+        text_color = (0, 0, 0)
+        lb_font = pygame.font.SysFont('Corbel', 20)
+
+        #Crea el rect donde se va a encontrar la leaderboard y lo coloca
+        rect_leaderboard = pygame.Rect(0, 30, width, height)
+        #text = f"1. {lb_dict[0]} ({lb_dict[0]}pts)/n2. {lb_dict[1]} ({lb_dict[1]}pts)/n3. {lb_dict[2]} ({lb_dict[2]}pts)"
+        text = f"{lb_dict}"
+        text_image = lb_font.render(text, True, text_color, rect_bg_color)
+        text_image_rect = text_image.get_rect()
+        text_image_rect.center = rect_leaderboard.center
+        self.screen.blit(text_image, text_image_rect)
