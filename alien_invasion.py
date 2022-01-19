@@ -259,7 +259,8 @@ class AlienInvasion:
 
         self.lives.show_lives_number()
         self.points.show_points()
-        self.leaderboard.show_leaderboard()
+        if self.stop_game:
+            self.leaderboard.show_leaderboard()
 
         pygame.display.flip()
         

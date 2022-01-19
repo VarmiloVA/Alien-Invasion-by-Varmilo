@@ -226,34 +226,40 @@ class LeaderBoard():
             
     def get_users(self):
         #Saca una lista con los 3 jugadores con mejor puntuación.
-        self.users = []
-        for i in range(len(self.leaderboard_dic.items())):
-            try:
-                if self._get_key(self.scores[i]) not in self.users:
-                    user = self._get_key(self.scores[i])
-                    self.users.append(user)
-                    return self.users
-            except:
-                pass
-                
+        users = []
+        for i in range(3):
+            if self._get_key(self.scores[i]) not in users and len(self.scores) == 3:
+                user = self._get_key(self.scores[i])
+                users.append(user)
+        return print(users)
+    
     def _get_key(self, score):
         #Busca las llaves correspondientes con los 3 mejores scores
-        for k,v in self.leaderboard_dic.items():
-            if score == v:
-                return k
+        try:
+            for k,v in self.leaderboard_dic.items():
+                if score == v:
+                   return k
+
+        except KeyError:
+            print(self.leaderboard_dic)
+            print("ha  llegado al keyerror de _get_key")
 
     def create_lb_dict(self):
         self.lb = {}
-        self.get_best_scores()
-        self.get_users()
+        scores = self.get_best_scores()
+        users = self.get_users()
         try:
             self.lb = {
-                self.users[0]: self.scores[0],
-                self.users[1]: self.scores[1],
-                self.users[2]: self.scores[2]
+                'Varmilo': scores[0],
+                "Psylo": scores[1],
+                'S4vitar': scores[2]
             }
         except IndexError:
             print(f'{IndexError} en el dict inicial de create_lb_dict')
+        except TypeError:
+            print(f"{TypeError} en la línea 251")
+        except:
+            print(' ')
 
         if len(self.lb.values()) == 3:
             lb_sorted_values = sorted(self.lb.values(), reverse=True)
@@ -268,7 +274,7 @@ class LeaderBoard():
             return self.lb_sorted
             
         elif len(self.lb.values()) > 3 or len(self.lb.values()) < 3:
-            return print("Error, el len(dict leaderboard) > 3") 
+           return print("Error, el len(dict leaderboard) > 3") 
 
     def show_leaderboard(self):
         """shows the leaderboard"""
@@ -282,9 +288,32 @@ class LeaderBoard():
 
         #Crea el rect donde se va a encontrar la leaderboard y lo coloca
         rect_leaderboard = pygame.Rect(0, 30, width, height)
-        #text = f"1. {lb_dict[0]} ({lb_dict[0]}pts)/n2. {lb_dict[1]} ({lb_dict[1]}pts)/n3. {lb_dict[2]} ({lb_dict[2]}pts)"
-        text = f"{lb_dict}"
+        if lb_dict is not None:
+            position = 1
+            for user, points in lb_dict.items():
+                if position == 1:
+                    text = f"{position}.-{user}: {points}"
+                    position += 1
+                elif position == 2:
+                    text2 = f"{position}.-{user}: {points}"
+                    position += 1
+                elif position == 3:
+                    text3 = f"{position}.-{user}: {points}"
+
+        elif lb_dict is None:
+            text = "El dict es nonetype"
+
         text_image = lb_font.render(text, True, text_color, rect_bg_color)
         text_image_rect = text_image.get_rect()
         text_image_rect.center = rect_leaderboard.center
         self.screen.blit(text_image, text_image_rect)
+
+        text2_image = lb_font.render(text2, True, text_color, rect_bg_color)
+        text2_image_rect = text2_image.get_rect()
+        text2_image_rect.center = (rect_leaderboard.center[0], rect_leaderboard.center[1] + text_image_rect[1])
+        self.screen.blit(text2_image, text2_image_rect)
+
+        text3_image = lb_font.render(text3, True, text_color, rect_bg_color)
+        text3_image_rect = text3_image.get_rect()
+        text3_image_rect.center = (rect_leaderboard.center[0], rect_leaderboard.center[1] + 2*text_image_rect[1])
+        self.screen.blit(text3_image, text3_image_rect)
