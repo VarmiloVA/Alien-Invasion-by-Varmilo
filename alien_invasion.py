@@ -75,7 +75,6 @@ class AlienInvasion:
 
         while self.stop_game:
             self._update_screen()
-            self.points.reset_points()
             self._check_events()       
 
     def _check_events(self):
@@ -155,7 +154,6 @@ class AlienInvasion:
         #Retira todas las balas y aliens que han chocado.
         if pygame.sprite.groupcollide(self.bullets, self.aliens, True, True):
             self.points.points += 1
-            print(self.points.points)
 
         if not self.aliens:
             # Destruye las balas existentes y crea una flota nueva.

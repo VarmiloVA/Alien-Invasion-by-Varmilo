@@ -16,7 +16,7 @@ class Settings:
 
         #Velocidad enemigos
         self.alien_speed = 5
-        self.fleet_drop_speed = 8
+        self.fleet_drop_speed = 10
 
         #fleet_direction de 1 representa derecha; -1 representa izquierda
         self.fleet_direction = 1
@@ -32,4 +32,4 @@ class Settings:
         self.bullet_color = (204, 254, 0)
 
         #Número de vidas.
-        self.number_lives = 3
+        self.number_lives = 1

@@ -122,7 +122,6 @@ class LivesCounter:
         self.screen.blit(self.image_death, self.death_3_rect)
         self.screen.blit(self.image_death, self.death_2_rect)
         self.screen.blit(self.image_death, self.death_1_rect)
-        print(self.image_death.get_size())
 
         self.game_over_screen = True
             
@@ -228,10 +227,10 @@ class LeaderBoard():
         #Saca una lista con los 3 jugadores con mejor puntuación.
         users = []
         for i in range(3):
-            if self._get_key(self.scores[i]) not in users and len(self.scores) == 3:
+            if self._get_key(self.scores[i]) not in users:
                 user = self._get_key(self.scores[i])
                 users.append(user)
-        return print(users)
+        return users
     
     def _get_key(self, score):
         #Busca las llaves correspondientes con los 3 mejores scores
@@ -249,17 +248,14 @@ class LeaderBoard():
         scores = self.get_best_scores()
         users = self.get_users()
         try:
-            self.lb = {
-                'Varmilo': scores[0],
-                "Psylo": scores[1],
-                'S4vitar': scores[2]
-            }
-        except IndexError:
-            print(f'{IndexError} en el dict inicial de create_lb_dict')
-        except TypeError:
-            print(f"{TypeError} en la línea 251")
+            if len(users) == 3 and len(scores) == 3:
+                self.lb = {
+                    users[0]: scores[0],
+                    users[1]: scores[1],
+                    users[2]: scores[2]
+                }
         except:
-            print(' ')
+            print(len(scores))
 
         if len(self.lb.values()) == 3:
             lb_sorted_values = sorted(self.lb.values(), reverse=True)
@@ -272,22 +268,21 @@ class LeaderBoard():
                         self.lb_sorted[k] = self.lb[k]
             
             return self.lb_sorted
-            
-        elif len(self.lb.values()) > 3 or len(self.lb.values()) < 3:
-           return print("Error, el len(dict leaderboard) > 3") 
 
     def show_leaderboard(self):
         """shows the leaderboard"""
         #Obtiene el diccionario con la leaderboard ordenada
         lb_dict = self.create_lb_dict()
         #Define diferentes parámetros referidos a mostrar la leaderboard
-        width, height = 150, 20
+        width, height = 200, 20
         rect_bg_color = (93, 118, 142)
         text_color = (0, 0, 0)
-        lb_font = pygame.font.SysFont('Corbel', 20)
+        lb_font1 = pygame.font.SysFont('Corbel', 24)
+        lb_font2 = pygame.font.SysFont('Corbel', 20)
+        lb_font3 = pygame.font.SysFont('Corbel', 16)
 
         #Crea el rect donde se va a encontrar la leaderboard y lo coloca
-        rect_leaderboard = pygame.Rect(0, 30, width, height)
+        rect_leaderboard = pygame.Rect(10, 30, width, height)
         if lb_dict is not None:
             position = 1
             for user, points in lb_dict.items():
@@ -299,21 +294,21 @@ class LeaderBoard():
                     position += 1
                 elif position == 3:
                     text3 = f"{position}.-{user}: {points}"
+                
+            text_image = lb_font1.render(text, True, text_color, rect_bg_color)
+            text_image_rect = text_image.get_rect()
+            text_image_rect.midleft = rect_leaderboard.midleft
+            self.screen.blit(text_image, text_image_rect)
+
+            text2_image = lb_font2.render(text2, True, text_color, rect_bg_color)
+            text2_image_rect = text2_image.get_rect()
+            text2_image_rect.midleft = (rect_leaderboard.midleft[0], rect_leaderboard.midleft[1] + text_image_rect[1])
+            self.screen.blit(text2_image, text2_image_rect)
+
+            text3_image = lb_font3.render(text3, True, text_color, rect_bg_color)
+            text3_image_rect = text3_image.get_rect()
+            text3_image_rect.midleft = (rect_leaderboard.midleft[0], rect_leaderboard.midleft[1] + 2 * text_image_rect[1])
+            self.screen.blit(text3_image, text3_image_rect)
 
         elif lb_dict is None:
             text = "El dict es nonetype"
-
-        text_image = lb_font.render(text, True, text_color, rect_bg_color)
-        text_image_rect = text_image.get_rect()
-        text_image_rect.center = rect_leaderboard.center
-        self.screen.blit(text_image, text_image_rect)
-
-        text2_image = lb_font.render(text2, True, text_color, rect_bg_color)
-        text2_image_rect = text2_image.get_rect()
-        text2_image_rect.center = (rect_leaderboard.center[0], rect_leaderboard.center[1] + text_image_rect[1])
-        self.screen.blit(text2_image, text2_image_rect)
-
-        text3_image = lb_font.render(text3, True, text_color, rect_bg_color)
-        text3_image_rect = text3_image.get_rect()
-        text3_image_rect.center = (rect_leaderboard.center[0], rect_leaderboard.center[1] + 2*text_image_rect[1])
-        self.screen.blit(text3_image, text3_image_rect)
