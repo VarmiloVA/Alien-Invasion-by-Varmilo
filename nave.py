@@ -37,13 +37,13 @@ class Ship:
 
         #Actualiza el valor x de la nave, no el rect.
         if self.moving_right and self.rect.right < self.screen_rect.right + 15:
-            self.x += self.settings.ship_horizontal_speed
+            self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > -15:
-            self.x -= self.settings.ship_horizontal_speed
+            self.x -= self.settings.ship_speed
         if self.moving_up and self.rect.top > self.screen_rect.centery + 150:
-            self.y -= self.settings.ship_vertical_speed
+            self.y -= self.settings.ship_speed
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom + 15:
-            self.y += self.settings.ship_vertical_speed
+            self.y += self.settings.ship_speed
 
         # Actualiza el objeto rect de self.x
         self.rect.x = self.x

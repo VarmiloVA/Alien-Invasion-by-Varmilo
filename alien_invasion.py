@@ -159,6 +159,7 @@ class AlienInvasion:
             # Destruye las balas existentes y crea una flota nueva.
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
     
     def _create_fleet(self):
         """Crea una flota de aliens"""
@@ -245,6 +246,8 @@ class AlienInvasion:
             x = self.instancia.run_game()
             self.stop_game = False
             self.lives.number_lives = self.settings.number_lives 
+            self.settings.initialize_dynamic_settings()
+            
             return x, self.stop_game
 
     def _update_screen(self):
