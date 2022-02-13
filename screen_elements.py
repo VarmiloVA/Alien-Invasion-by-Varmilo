@@ -134,7 +134,43 @@ class LivesCounter:
                 self.game_over_image_rect = (self.screen_rect[0] // 2, self.screen_rect[1] // 2)
 
                 return self.game_over_image_rect
-                
+
+class Level:
+    def __init__(self, ai_game):
+        """Muestra el nivel en el que se encuentra el jugador"""
+        self.ai_game = ai_game
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen_rect
+
+    def _prepare_text_and_rect(self):
+        #Configura el rect en el que se va a representar el texto.
+        self.width, self.height = 50, 20
+        self.rect_color = (93, 118, 142)
+        self.number_color = (0, 0, 0)
+        self.font = pygame.font.SysFont('Calibri', 20)
+
+        #Crea el rect donde se va a representar el texto.
+        self.rect  = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.bottomleft = (self.screen_rect.bottomleft[0] + 5, self.screen_rect.bottomleft[1])
+        
+        #Prepara el texto.
+        self.level = self.ai_game.level_number
+        self.level_text = f"Level {self.level}"
+        self.text_image = self.font.render(self.level_text, True, self.number_color, self.rect_color)
+        self.text_image_rect = self.text_image.get_rect()
+        self.text_image_rect.center = self.rect.center
+
+    def reset_level(self):
+        #Resetea el nivel al reinciiar el juego
+        self.level = 1
+
+        return self.level
+
+    def show_level(self):
+        #Muestra el nivel
+        self._prepare_text_and_rect()
+        self.screen.blit(self.text_image, self.text_image_rect)
+
 class ResetButton:
     def __init__(self, ai_game):
         """Crea el boton de reset para cuando el jugador pierde"""

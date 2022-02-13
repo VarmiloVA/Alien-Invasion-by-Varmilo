@@ -28,6 +28,8 @@ class AlienInvasion:
 
         self.inicial_screen = InicialScreen(self)
         self.lives = LivesCounter(self)
+        self.level_number = 1
+        self.level = Level(self)
         self.game_over_screen = self.lives.game_over_screen
         self.points = Points(self)
         self.restart_button = ResetButton(self)
@@ -155,11 +157,12 @@ class AlienInvasion:
         if pygame.sprite.groupcollide(self.bullets, self.aliens, True, True):
             self.points.points += 1
 
-        if not self.aliens:
+        if not self.aliens and self.stop_game == False:
             # Destruye las balas existentes y crea una flota nueva.
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+            self.level_number += 1
     
     def _create_fleet(self):
         """Crea una flota de aliens"""
@@ -247,6 +250,7 @@ class AlienInvasion:
             self.stop_game = False
             self.lives.number_lives = self.settings.number_lives 
             self.settings.initialize_dynamic_settings()
+            self.level_number = self.level.reset_level()
             
             return x, self.stop_game
 
@@ -259,6 +263,7 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
 
         self.lives.show_lives_number()
+        self.level.show_level()
         self.points.show_points()
         if self.stop_game:
             self.leaderboard.show_leaderboard()
