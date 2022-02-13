@@ -134,9 +134,8 @@ class LivesCounter:
                 self.game_over_image_rect = (self.screen_rect[0] // 2, self.screen_rect[1] // 2)
 
                 return self.game_over_image_rect
-
-
-class ResetButton():
+                
+class ResetButton:
     def __init__(self, ai_game):
         """Crea el boton de reset para cuando el jugador pierde"""
         self.screen = ai_game.screen

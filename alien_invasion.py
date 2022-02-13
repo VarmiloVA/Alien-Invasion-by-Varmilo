@@ -12,13 +12,13 @@ from ufo import Ufo
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
-    def __init__(self, modo_pantalla, screen, status):
+    def __init__(self, modo_pantalla, key_pressed=False):
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
-        self.key_pressed = status
+        self.key_pressed = key_pressed
         self.number_lives = self.settings.number_lives
 
         self.screen = pygame.display.set_mode(
@@ -242,7 +242,7 @@ class AlienInvasion:
     def _check_restart_button(self, mouse_pos):
         """Reinicia el juego cuando el jugador hace click en 'Restart'"""
         if self.restart_button.rect.collidepoint(mouse_pos):
-            self.instancia = AlienInvasion('VENTANA', 'patata', True)
+            self.instancia = AlienInvasion('VENTANA', True)
             x = self.instancia.run_game()
             self.stop_game = False
             self.lives.number_lives = self.settings.number_lives 
@@ -276,5 +276,5 @@ class AlienInvasion:
 
 if __name__ == '__main__':
     #Hace una instancia del juego y lo ejecuta
-    ai = AlienInvasion('VENTANA', 'patata', False)
+    ai = AlienInvasion('VENTANA')
     ai.run_game()
