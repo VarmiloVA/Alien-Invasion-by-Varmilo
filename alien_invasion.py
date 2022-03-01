@@ -1,5 +1,7 @@
 import sys
 import pygame
+import json
+import itertools
 from pygame.sprite import Sprite
 from time import sleep
 
@@ -12,10 +14,12 @@ from ufo import Ufo
 class AlienInvasion:
     'Clase general para gestionar los recursos y el comportamiento del juego.'
 
-    def __init__(self, modo_pantalla, key_pressed=False):
+    def __init__(self, modo_pantalla, user_name, key_pressed=False):
         """Inicializa el juego y crea recursos."""
         pygame.init()
 
+        self.leaderboard_archive = 'leaderboard.json'
+        self.user_name = user_name
         self.settings = Settings()
         self.formato_pantalla = modo_pantalla
         self.key_pressed = key_pressed
@@ -68,12 +72,14 @@ class AlienInvasion:
             if not self.key_pressed:
                 self._check_events()
                 self._update_inicial_screen()
+                self._check_score()
             elif self.key_pressed:
                 self._check_events()
                 self._update_aliens()
                 self.ship.update()
                 self._update_bullets()
                 self._update_screen()
+                self._check_score()
 
         while self.stop_game:
             self._update_screen()
@@ -245,7 +251,7 @@ class AlienInvasion:
     def _check_restart_button(self, mouse_pos):
         """Reinicia el juego cuando el jugador hace click en 'Restart'"""
         if self.restart_button.rect.collidepoint(mouse_pos):
-            self.instancia = AlienInvasion('VENTANA', True)
+            self.instancia = AlienInvasion('VENTANA',self.user_name, True)
             x = self.instancia.run_game()
             self.stop_game = False
             self.lives.number_lives = self.settings.number_lives 
@@ -253,6 +259,21 @@ class AlienInvasion:
             self.level_number = self.level.reset_level()
             
             return x, self.stop_game
+    
+    def _check_score(self):       
+        if self.stop_game:
+            with open(self.leaderboard_archive, "r+") as f:
+                dic = json.loads(f.read())
+                leaderboard_dic = dic["leaderboard"]
+                scores = self.leaderboard.get_scores()
+                flag = True
+
+                if self.stop_game:
+                    for i in scores:
+                        if self.points.points > i and flag == True:
+                            leaderboard_dic[user_name] = str(self.points.points)
+                            f.seek(0)
+                            json.dump(dic, f)
 
     def _update_screen(self):
         """Actualiza la pantalla y cambia a la pantalla nueva."""
@@ -280,6 +301,29 @@ class AlienInvasion:
         pygame.display.flip()
 
 if __name__ == '__main__':
+    #Crea una lista con los username ya existentes:
+    json_file = 'leaderboard.json'
+    with open(json_file, 'r') as leaderboard_file:
+        read = leaderboard_file.read()
+    
+    dic = json.loads(read)
+    leaderboard_dic = dic['leaderboard']
+
+    #Sacar los usuarios del dict
+    users = []
+    for k,v in dic.items():
+        users.append(k)
+
+    #Antes de ejecutar pregunta el nombre del usuario.
+    while True:
+        user_name = input('Username: ')
+
+        if user_name not in users:
+            break
+        elif user_name in users:
+            print('This username has been used before, try a different one')
+            continue
+
     #Hace una instancia del juego y lo ejecuta
-    ai = AlienInvasion('VENTANA')
+    ai = AlienInvasion('VENTANA', user_name)
     ai.run_game()

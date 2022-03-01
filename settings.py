@@ -21,7 +21,7 @@ class Settings:
         self.bullet_color = (204, 254, 0)
 
         #Número de vidas.
-        self.number_lives = 1
+        self.number_lives = 3
 
         #Ritmo con el que incrementa la velocidad del juego.
         self.speedup_scale = 1.3

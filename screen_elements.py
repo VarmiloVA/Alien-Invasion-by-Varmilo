@@ -22,7 +22,7 @@ class InicialScreen:
         if ai_game.formato_pantalla.upper() == 'COMPLETO':
             self.rect.midtop = self.screen_rect.midtop
             self.rect = self.rect.midtop
-        elif ai_game.formato_pantalla.upper() == 'VENTANA':
+        if ai_game.formato_pantalla.upper() == 'VENTANA':
             self.rect.midtop = self.screen_rect.midtop
     
     def image_show(self):
@@ -247,16 +247,19 @@ class LeaderBoard():
         dic = json.loads(read)
         self.leaderboard_dic = dic["leaderboard"]
 
-    def get_best_scores(self):
-        #Se meten en una lista las 3 mejores puntuaciones:
+    def get_scores(self):
+        #Se meten en una lista las puntuaciones:
         self.scores = []
         for i in self.leaderboard_dic.keys():
             if self.leaderboard_dic[i] != None and self.leaderboard_dic[i] not in self.scores:
                 self.leaderboard_dic[i] = int(self.leaderboard_dic[i]) 
                     
                 self.scores.append(self.leaderboard_dic[i])
+        self.scores.sort(reverse=True)
+        self.scores = self.scores[0:3]
 
-        return self.scores
+        if len(self.scores) == 3:
+            return self.scores
             
     def get_users(self):
         #Saca una lista con los 3 jugadores con mejor puntuación.
@@ -280,7 +283,7 @@ class LeaderBoard():
 
     def create_lb_dict(self):
         self.lb = {}
-        scores = self.get_best_scores()
+        scores = self.get_scores()
         users = self.get_users()
         try:
             if len(users) == 3 and len(scores) == 3:
