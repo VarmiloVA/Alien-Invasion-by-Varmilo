@@ -24,14 +24,14 @@ class Settings:
         self.number_lives = 3
 
         #Ritmo con el que incrementa la velocidad del juego.
-        self.speedup_scale = 1.3
+        self.speedup_scale = 1.4
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
             """Inicializa los valores para los atributos que tengan que cambiar durante el juego"""
-            self.ship_speed = 2.3
-            self.bullet_speed = 4.0
-            self.alien_speed = 4.0
+            self.ship_speed = 1.0
+            self.bullet_speed = 1.2
+            self.alien_speed = 1.2
 
             #fleet_direction de 1 representa derecha; -1 representa izquierda 
             self.fleet_direction = 1
@@ -39,4 +39,4 @@ class Settings:
     def increase_speed(self):
             self.ship_speed *= self.speedup_scale
             self.bullet_speed *= self.speedup_scale
-            self.alien_speed *= self.speedup_scale
+            self.alien_speed *= self.speedup_scale / 2
