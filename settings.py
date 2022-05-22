@@ -9,7 +9,7 @@ class Settings:
         self.bg_color = (93, 118, 142)
 
         #Velocidad enemigos
-        self.fleet_drop_speed = 10
+        self.fleet_drop_speed = 8
 
         #Configuración de las balas
         self.bullet_width = 3
@@ -24,14 +24,14 @@ class Settings:
         self.number_lives = 3
 
         #Ritmo con el que incrementa la velocidad del juego.
-        self.speedup_scale = 1.4
+        self.speedup_scale = 1.3
         self.initialize_dynamic_settings()
 
     def initialize_dynamic_settings(self):
             """Inicializa los valores para los atributos que tengan que cambiar durante el juego"""
-            self.ship_speed = 1.0
+            self.ship_speed = 0.3
             self.bullet_speed = 1.2
-            self.alien_speed = 1.2
+            self.alien_speed = 0.5
 
             #fleet_direction de 1 representa derecha; -1 representa izquierda 
             self.fleet_direction = 1
