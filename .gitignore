@@ -1,5 +1,3 @@
 __pycache__/
-resumen.txt
-color.py
-images/
-leaderboard.json
+_requirements.txt
+.venv/
